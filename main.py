@@ -41,3 +41,47 @@ def three_halves(img):
 				new_img.paste(temp,(x_pos*pitch,(y_pos+1)*pitch),temp)
 	
 	return new_img
+
+def three_halves_vertical(img):
+	
+	new_img = PIL.Image.new("RGBA", ( img.size[0] , img.size[1] / 2 * 3 ) , (51,51,51,255) )
+	
+	for x in range( img.size[0]/pitch ):
+		for y in range( img.size[1]/pitch ):
+			x_pos = x
+			y_pos = y*3//2
+			temp = img.crop( ( x*pitch , y*pitch , (x+1)*pitch , (y+1)*pitch ) )
+			new_img.paste(temp,(x_pos*pitch,y_pos*pitch),temp)
+			if y%2 == 1:
+				new_img.paste(temp,(x_pos*pitch,(y_pos+1)*pitch),temp)
+	
+	return new_img
+
+def three_halves_horizontal(img):
+	
+	new_img = PIL.Image.new("RGBA", ( img.size[0] / 2 * 3 , img.size[1] ) , (51,51,51,255) )
+	
+	for x in range( img.size[0]/pitch ):
+		for y in range( img.size[1]/pitch ):
+			x_pos = x*3//2
+			y_pos = y
+			temp = img.crop( ( x*pitch , y*pitch , (x+1)*pitch , (y+1)*pitch ) )
+			new_img.paste(temp,(x_pos*pitch,y_pos*pitch),temp)
+			if x%2 == 1:
+				new_img.paste(temp,((x_pos+1)*pitch,y_pos*pitch),temp)
+	
+	return new_img
+
+def padding(img):
+	
+	base = PIL.Image.open('cross_extend.png')
+	
+	new_img = PIL.Image.new("RGBA", ( img.size[0] , base.size[1] ) , (0,0,0,255) )
+	
+	for x in range( img.size[0] / base.size[0] ):
+		new_img.paste( base , ( x*base.size[0] ,0) )
+	
+	new_img.paste( img , ( 0 , (base.size[1]-img.size[1])/2 ) )
+	
+	return new_img
+
