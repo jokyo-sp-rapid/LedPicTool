@@ -1,7 +1,7 @@
 
 pitch=5
 
-def three_fourth(img,bg_color):
+def three_quarters(img,bg_color):
   
 	img_a = img.copy()
 	for x in range(img_a.size[0]):
